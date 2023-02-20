@@ -2,5 +2,6 @@
   "Home": "Home",
   "About": "About",
   "Profile": "Profile",
-  "Login": "Login"
+  "Login": "Login",
+  "Logout": "Logout"
 }

@@ -11,7 +11,6 @@ import {IRootState} from "../redux/store";
 
 export const ReactRouters = () => {
     const isAuth = useSelector<IRootState, boolean>((state) => state)
-
     return (
         <BrowserRouter>
             <Header />

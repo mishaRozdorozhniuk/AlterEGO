@@ -4,6 +4,8 @@ import { AppBar, Link, Toolbar } from '@material-ui/core';
 import { Select, MenuItem } from '@material-ui/core';
 import useStyles from './headerStyles';
 import {useTranslation} from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {userIsAuth} from "../../redux/action";
 
 interface Option {
     value: string;
@@ -20,11 +22,18 @@ const Header: React.FC = () => {
     const location = useLocation();
     const { t, i18n } = useTranslation();
     const [value, setValue] = useState("EN");
+    const dispatch = useDispatch()
+    const isAuth = localStorage.getItem("isAuthenticated")
 
     const changeLanguageHandler = (e: any) => {
         setValue(e.target.value);
         const languageValue = e.target.value
         i18n.changeLanguage(languageValue);
+    }
+
+    const handleLogOut = () => {
+        dispatch(userIsAuth(false))
+        localStorage.removeItem("isAuthenticated")
     }
 
     return (
@@ -58,15 +67,27 @@ const Header: React.FC = () => {
                         className={classes.link}>
                         {t('Profile')}
                     </Link>
-                    <Link
-                        color="inherit"
-                        variant="button"
-                        component={RouterLink}
-                        to="/login"
-                        underline={location.pathname === '/login' ? 'always' : 'none'}
-                        className={classes.link}>
-                        {t('Login')}
-                    </Link>
+                    {!isAuth ?
+                        <Link
+                            color="inherit"
+                            variant="button"
+                            component={RouterLink}
+                            to="/login"
+                            underline={location.pathname === '/login' ? 'always' : 'none'}
+                            className={classes.link}>
+                            {t('Login')}
+                        </Link>:
+                        <Link
+                            color="inherit"
+                            variant="button"
+                            onClick={handleLogOut}
+                            component={RouterLink}
+                            to="/"
+                            className={classes.link}>
+                            {t('Logout')}
+                        </Link>
+                    }
+
                         <Select
                             labelId="select-label"
                             value={value}

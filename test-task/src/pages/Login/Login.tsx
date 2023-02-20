@@ -12,7 +12,6 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
     const classes = useStyles();
 
@@ -20,7 +19,7 @@ const Login = () => {
         e.preventDefault();
 
         if (email === 'admin' && password === '12345') {
-            dispatch(userIsAuth(isAuthenticated))
+            dispatch(userIsAuth(true))
             localStorage.setItem('isAuthenticated', 'true');
             navigate('/profile');
         } else {

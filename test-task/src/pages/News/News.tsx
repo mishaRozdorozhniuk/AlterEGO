@@ -23,7 +23,6 @@ const News = () => {
         setLimit(limit + 10);
     };
 
-
     return (
         <section className={classes.profile}>
             <div>
